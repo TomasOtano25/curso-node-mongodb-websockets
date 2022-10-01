@@ -25,9 +25,16 @@ router.post("/message", function (req, res) {
   const body = req.body;
   const query = req.query;
   if (req.query.error === "ok") {
-    response.error(req, res, "Error al intentar crear", 400);
+    response.error(
+      req,
+      res,
+      "Error al intentar crear",
+      400,
+      "Es solo una simulacion de un error"
+    );
+  } else {
+    response.success(req, res, "Creado correctamente", 201);
   }
-  response.success(req, res, "Creado correctamente", 201);
 });
 
 router.delete("/message", function (req, res) {
