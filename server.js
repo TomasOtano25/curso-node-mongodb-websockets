@@ -25,6 +25,20 @@ router.post("/message", function (req, res) {
   res.send("Mensaje añadido");
 });
 
+router.delete("/message", function (req, res) {
+  // res.status(201).send();
+  // res.status(200).send({
+  //   error: "",
+  //   body: "Eliminado correctamente",
+  // });
+  res.status(200).send([
+    {
+      error: "",
+      body: "Eliminado correctamente",
+    },
+  ]);
+});
+
 app.listen(PORT, () => {
   console.log(`La aplicacion esta escuchando en http://localhost:${PORT}`);
 });
