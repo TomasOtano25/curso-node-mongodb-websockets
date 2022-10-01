@@ -44,6 +44,8 @@ router.delete("/message", function (req, res) {
   ]);
 });
 
+app.use("/app", express.static("public"));
+
 app.listen(PORT, () => {
   console.log(`La aplicacion esta escuchando en http://localhost:${PORT}`);
 });
