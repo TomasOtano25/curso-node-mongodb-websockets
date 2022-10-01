@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+
+const response = require("./network/response");
+
 const PORT = 3000;
 
 const router = express.Router();
@@ -14,15 +17,17 @@ router.get("/message", function (req, res) {
   res.header({
     "custom-header": "Nuestro valor personalizado",
   });
-  res.send("Lista de mensajes");
+  // res.send("Lista de mensajes");
+  response.success(req, res, "Lista de mensajes");
 });
 
 router.post("/message", function (req, res) {
   const body = req.body;
   const query = req.query;
-  console.log(body);
-  console.log(query);
-  res.send("Mensaje añadido");
+  if (req.query.error === "ok") {
+    response.error(req, res, "Error al intentar crear", 400);
+  }
+  response.success(req, res, "Creado correctamente", 201);
 });
 
 router.delete("/message", function (req, res) {
