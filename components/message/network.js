@@ -1,24 +1,8 @@
 const express = require("express");
-
+const controller = require("./controller");
 const response = require("./../../network/response");
 
 const router = express.Router();
-
-router.post("/", function (req, res) {
-  const body = req.body;
-  const query = req.query;
-  if (req.query.error === "ok") {
-    response.error(
-      req,
-      res,
-      "Error al intentar crear",
-      400,
-      "Es solo una simulacion de un error"
-    );
-  } else {
-    response.success(req, res, "Creado correctamente", 201);
-  }
-});
 
 router.get("/", function (req, res) {
   const header = req.headers;
@@ -27,6 +11,24 @@ router.get("/", function (req, res) {
     "custom-header": "Nuestro valor personalizado",
   });
   response.success(req, res, "Lista de mensajes");
+});
+
+router.post("/", function (req, res) {
+  const { user, message } = req.body;
+  controller
+    .addMessage(user, message)
+    .then((message) => {
+      response.success(req, res, message, 201);
+    })
+    .catch((error) => {
+      response.error(
+        req,
+        res,
+        "Informacion invalida",
+        400,
+        "Error en el controller"
+      );
+    });
 });
 
 module.exports = router;
