@@ -24,4 +24,15 @@ function getMessages() {
   });
 }
 
-module.exports = { addMessage, getMessages };
+function updateMessage(id, message) {
+  return new Promise(async (resolve, reject) => {
+    if (!id || !message) {
+      // console.error("[messageController]: No hay id o mensaje");
+      return reject("Invalid daata");
+    }
+    const result = await store.updateText(id, message)
+    resolve(result)
+  });
+}
+
+module.exports = { addMessage, getMessages, updateMessage };
