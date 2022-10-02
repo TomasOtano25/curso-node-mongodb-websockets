@@ -35,4 +35,27 @@ function updateMessage(id, message) {
   });
 }
 
-module.exports = { addMessage, getMessages, updateMessage };
+function deleteMessage(id) {
+  return new Promise((resolve, reject) => {
+    if (!id) {
+      reject("Id invalido");
+      return false;
+    }
+    store.remove(id)
+      .then(() => {
+        resolve();
+      })
+      .catch(error => {
+        reject(error)
+      });
+  });
+}
+
+
+
+module.exports = {
+  addMessage,
+  getMessages,
+  updateMessage,
+  deleteMessage
+};
