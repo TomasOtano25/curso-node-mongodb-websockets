@@ -5,11 +5,14 @@ function addMessage(message) {
   myMessage.save();
 }
 
-function getMessages(filterUser) {
+function getMessages(filters) {
   return new Promise((resolve, reject) => {
     let filter = {}
-    if (filterUser !== null) {
-      filter = { user: filterUser }
+    if (filters.user !== null) {
+      filter = { user: filters.user }
+    }
+    if (filters.chat !== null) {
+      filter = { ...filter, chat: filters.chat }
     }
     const messages = Model.find(filter)
       .populate('user')

@@ -1,33 +1,33 @@
 const Model = require('./model');
 
-function addUser(user) {
-  const newUser = new Model(user);
-  return newUser.save();
+function addChat(chat) {
+  const myChat = new Model(chat);
+  return myChat.save();
 }
 
-function listUsers() {
-  return Model.find();
+function listChats(userId) {
+  return new Promise((resolve, reject) => {
+    let filter = {}
+    if (userId) {
+      filter = {
+        users: userId
+      }
+    }
 
-}
+    Model.find(filter)
+      .populate('users')
+      .exec((error, populated) => {
+        if (error) {
+          reject(error);
+          return false;
+        }
 
-async function updateUser(id, name) {
-  const foundUser = await Model.findOne({
-    '_id': id
-  });
-  foundUser.name = name;
-  const newUser = await foundUser.save();
-  return newUser;
-}
-
-function removeUser(id) {
-  return Model.deleteOne({
-    '_id': id
-  });
+        resolve(populated);
+      })
+  })
 }
 
 module.exports = {
-  add: addUser,
-  list: listUsers,
-  updateText: updateUser,
-  remove: removeUser
+  add: addChat,
+  list: listChats,
 };

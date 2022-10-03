@@ -1,22 +1,22 @@
 const store = require("./store");
 
-function addUser(name) {
-  if (!name) {
+function addChat(users) {
+  if (!users || !Array.isArray(users)) {
     console.error("[messageController]: No hay nombre");
-    return Promise.reject("Invalid name");
+    return Promise.reject("Invalid user list");
   }
-  const user = {
-    name
+  const chat = {
+    users: users
   };
-  return store.add(user);
+  return store.add(chat);
 }
 
-function listUsers() {
-  return store.list();
+function listChats(userId) {
+  return store.list(userId);
 }
 
 
 module.exports = {
-  addUser,
-  listUsers
+  addChat,
+  listChats
 };

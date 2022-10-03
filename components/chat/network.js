@@ -5,9 +5,9 @@ const response = require("./../../network/response");
 const router = express.Router();
 
 router.post("/", function (req, res) {
-  const { name } = req.body;
+  const { users } = req.body;
   controller
-    .addUser(name)
+    .addChat(users)
     .then((data) => {
       response.success(req, res, data, 201);
     })
@@ -22,9 +22,10 @@ router.post("/", function (req, res) {
     });
 });
 
-router.get('/', function (req, res) {
+router.get('/:userId', function (req, res) {
+  const { userId } = req.params;
   controller
-    .listUsers()
+    .listChats(userId)
     .then((users) => {
       response.success(req, res, users, 200)
     })

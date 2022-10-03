@@ -14,4 +14,5 @@ This is a simple messaging system API.
 npm i express
 npm i body-parser
 npm i mongoose
+npm i multer
 ```
