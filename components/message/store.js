@@ -1,11 +1,11 @@
-const db = require('mongoose');
+// const db = require('mongoose');
 const Model = require('./model')
 
 // conection
-db.Promise = global.Promise;
-db.connect('mongodb://localhost:27017/telegrom').then(() => {
-  console.log(">>> DB is connected");
-});
+// db.Promise = global.Promise;
+// db.connect('mongodb://localhost:27017/telegrom').then(() => {
+//   console.log(">>> DB is connected");
+// });
 
 
 const list = [];
