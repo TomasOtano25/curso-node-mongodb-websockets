@@ -5,6 +5,7 @@ const PORT = 3000;
 
 const server = require('http').Server(app);
 
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const socket = require('./socket');
 const db = require('./db');
@@ -12,6 +13,8 @@ const router = require("./network/routes");
 const connect = require('./db');
 
 db(process.env.MONGO_URL);
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
