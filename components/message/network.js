@@ -6,7 +6,7 @@ const response = require("./../../network/response");
 const router = express.Router();
 
 const upload = multer({
-  dest: 'uploads/',
+  dest: 'public/files/',
 })
 
 router.get("/", function (req, res) {
@@ -27,7 +27,7 @@ router.get("/", function (req, res) {
 router.post("/", upload.single('file'), function (req, res) {
   const { chat, user, message } = req.body;
   controller
-    .addMessage(chat, user, message)
+    .addMessage(chat, user, message, req.file)
     .then((message) => {
       response.success(req, res, message, 201);
     })

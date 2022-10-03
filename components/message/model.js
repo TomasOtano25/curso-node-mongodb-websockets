@@ -15,6 +15,9 @@ const messageSchema = Schema({
     type: String,
     required: true
   },
+  file: {
+    type: String
+  },
   date: Date
 });
 
