@@ -1,7 +1,7 @@
-require('dotenv').config();
 const express = require("express");
+const config = require('./config')
 const app = express();
-const PORT = 3000;
+const PORT = config.port;
 
 const server = require('http').Server(app);
 
@@ -12,7 +12,7 @@ const db = require('./db');
 const router = require("./network/routes");
 const connect = require('./db');
 
-db(process.env.MONGO_URL);
+db(config.dbUrl);
 
 app.use(cors());
 
@@ -23,8 +23,8 @@ socket.connect(server);
 
 router(app);
 
-app.use("/app", express.static("public"));
+app.use(config.publicRoute, express.static("public"));
 
 server.listen(PORT, () => {
-  console.log(`La aplicacion esta escuchando en http://localhost:${PORT}`);
+  console.log(`La aplicacion esta escuchando en ${config.host}:${PORT}`);
 });

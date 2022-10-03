@@ -1,12 +1,13 @@
 const express = require("express");
 const multer = require('multer');
 
+const config = require('../../config')
 const controller = require("./controller");
 const response = require("./../../network/response");
 const router = express.Router();
 
 const upload = multer({
-  dest: 'public/files/',
+  dest: `public/${config.filesRoute}/`,
 })
 
 router.get("/", function (req, res) {
@@ -66,7 +67,7 @@ router.delete("/:id", function (req, res) {
   controller
     .deleteMessage(id)
     .then(() => {
-      response.success(req, res, `Mensaje ${id} eliminado`, 200);
+      response.success(req, res, undefined, 200);
     })
     .catch((error) => {
       response.error(
